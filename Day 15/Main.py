@@ -52,7 +52,7 @@ def RessourceCheck(coffeeType: str) -> bool:
             ressourcesEnough = False
     if ressourcesEnough:
         ConsumeRessources(coffeeStats)
-        print(f"Your {coffeeType} will be served soon. Please insert ${coffeeStats["Money"]} in coins.")
+        print(f"Your {coffeeType} will be served soon. It costs ${coffeeStats["Money"]}.")
 
 def ConsumeRessources(coffeeType: dict):
     for key in coffeeRessources:
@@ -60,6 +60,17 @@ def ConsumeRessources(coffeeType: dict):
             continue
         else:
             coffeeRessources[key] -= coffeeType[key]
+
+def ServeCoffee(coffee: str, leftToPay: float, price: float):
+    if leftToPay == 0:
+        print(f"Thanks! Enjoy your {coffee}!")
+    if leftToPay < 0:
+        exchange = leftToPay * -1
+        if exchange <= coffeeRessources["Money"]:
+            coffeeRessources["Money"] -= exchange
+            print(f"Here is your ${exchange} exchange. And enjoy your {coffee} :)")
+        elif exchange > coffeeRessources["Money"]:
+            print("Sadly we do not have enough exchange, sorry. Please take your refund.")
 
 while coffeeMachineOn == True:
     prompt = input("What would you like? (espresso/latte/cappuccino) ")
@@ -70,3 +81,16 @@ while coffeeMachineOn == True:
         PrintReport()
     else:
         RessourceCheck(prompt)
+    #coins insertion
+    coin_Inserted = 0
+    coffeeStats = coffeeDict.get(prompt)
+    leftToPay = coffeeStats["Money"]
+    while coin_Inserted < coffeeStats["Money"]:
+        coin = float(input("Please insert coins now to pay ($0.01, $0.05, $0.1, $0.25): $"))
+        leftToPay -= coin
+        coin_Inserted += coin
+        if leftToPay <= 0:
+            ServeCoffee(prompt, leftToPay, coffeeStats["Money"])
+        else:
+            print(f"${leftToPay} left to pay! ")
+

@@ -63,12 +63,12 @@ def ConsumeRessources(coffeeType: dict):
 
 def ServeCoffee(coffee: str, leftToPay: float, price: float):
     if leftToPay == 0:
-        print(f"Thanks! Enjoy your {coffee}!")
+        print(f"Thanks! Enjoy your ☕ {coffee}!")
     if leftToPay < 0:
         exchange = leftToPay * -1
         if exchange <= coffeeRessources["Money"]:
             coffeeRessources["Money"] -= exchange
-            print(f"Here is your ${exchange} exchange. And enjoy your {coffee} :)")
+            print(f"Here is your ${exchange} exchange. And enjoy your ☕ {coffee} :)")
         elif exchange > coffeeRessources["Money"]:
             print("Sadly we do not have enough exchange, sorry. Please take your refund.")
 

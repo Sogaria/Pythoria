@@ -35,13 +35,13 @@ coffeeDict = {
     "cappuccino": cappuccinoStats
 }
 
-def PrintReport():
+def printReport():
     print(f"Water: {coffeeRessources["Water"]}ml")      
     print(f"Milk: {coffeeRessources["Milk"]}ml")
     print(f"Coffee: {coffeeRessources["Coffee"]}g")
     print(f"Water: ${coffeeRessources["Money"]}")
 
-def RessourceCheck(coffeeType: str) -> bool:
+def ressourceCheck(coffeeType: str) -> bool:
     ressourcesEnough = True
     coffeeStats = coffeeDict.get(coffeeType) #access value (dictionary of specific coffee stats)
     for key in coffeeRessources:
@@ -51,17 +51,17 @@ def RessourceCheck(coffeeType: str) -> bool:
             print(f"Sorry there is not enough {key.lower()}.")
             ressourcesEnough = False
     if ressourcesEnough:
-        ConsumeRessources(coffeeStats)
+        consumeRessources(coffeeStats)
         print(f"Your {coffeeType} will be served soon. It costs ${coffeeStats["Money"]}.")
 
-def ConsumeRessources(coffeeType: dict):
+def consumeRessources(coffeeType: dict):
     for key in coffeeRessources:
         if key == "Money":
             continue
         else:
             coffeeRessources[key] -= coffeeType[key]
 
-def ServeCoffee(coffee: str, leftToPay: float, price: float):
+def serveCoffee(coffee: str, leftToPay: float, price: float):
     if leftToPay == 0:
         print(f"Thanks! Enjoy your ☕ {coffee}!")
     if leftToPay < 0:
@@ -78,9 +78,9 @@ while coffeeMachineOn == True:
         coffeeMachineOn == False
         break
     elif prompt == "print":
-        PrintReport()
+        printReport()
     else:
-        RessourceCheck(prompt)
+        ressourceCheck(prompt)
     #coins insertion
     coin_Inserted = 0
     coffeeStats = coffeeDict.get(prompt)
@@ -90,7 +90,7 @@ while coffeeMachineOn == True:
         leftToPay -= coin
         coin_Inserted += coin
         if leftToPay <= 0:
-            ServeCoffee(prompt, leftToPay, coffeeStats["Money"])
+            serveCoffee(prompt, leftToPay, coffeeStats["Money"])
         else:
             print(f"${leftToPay} left to pay! ")
 

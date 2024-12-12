@@ -16,7 +16,7 @@ class Quiz_Brain:
     
     def evaluate_Answer(self):
         correct_answer = self.question_list[self.question_number].answer
-        if self.nextQuestion() == correct_answer:
+        if self.nextQuestion().lower() == correct_answer.lower():
             print("Correct Answer! :)")
             self.score += 1
             print(f"The correct answer was: {correct_answer}.")

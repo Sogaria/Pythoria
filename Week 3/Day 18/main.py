@@ -30,6 +30,14 @@ def drawing_art():
             bob.forward(100)
             bob.right(angle)
 
-drawing_art()
+def random_walk():
+    list_angles = [0, 90, 180, 270]
+    while abs(bob.pos()[0]) < 1920/2 and abs(bob.pos()[1]) < 1080/2:
+        bob.color(random.uniform(0, 1), random.uniform(0, 1), random.uniform(0, 1))
+        bob.right(random.choice(list_angles))
+        bob.forward(50)
+        print(bob.pos())
+
+random_walk()
 
 screen.mainloop()

@@ -10,3 +10,5 @@ for item in question_data:
 new_quiz = Quiz_Brain(question_bank)
 while new_quiz.still_has_questions():
     new_quiz.evaluate_Answer()
+
+new_quiz.ending_screen()

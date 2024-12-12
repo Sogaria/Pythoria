@@ -25,3 +25,8 @@ class Quiz_Brain:
             print("Wrong Answer! :(")
             print(f"The correct answer was: {correct_answer}.")
             print(f"Current score: {self.score}/{self.question_number}.")
+        print()
+
+    def ending_screen(self):
+        print("You've completed the quiz!")
+        print(f"Your final score was: {self.score}/{self.question_number}!")

@@ -8,7 +8,7 @@ user_guess = screen.textinput("Turtle Race", "Which turtle will be the fastest?"
 turtles = {}
 
 def turtle_spawn():
-    list_colors = ["purple", "orange", "red", "blue", "black", "pink"]
+    list_colors = ["purple", "orange", "red", "blue", "black", "pink", "yellow", "green", "brown", "olive", "cyan", "tomato", "lime"]
     y = 155
     for color in list_colors:
         turtles[f"{color}"] = Turtle("turtle")
@@ -21,7 +21,12 @@ def turtle_race():
     winner = ""
     while True:
         for item in turtles:
-            turtles[item].forward(random.randint(0, 20))
+            turtles[item].forward(random.randint(0, 100))
+            left_or_right = random.randint(1,2)
+            if left_or_right == 1:
+                turtles[item].left(random.randint(1,45))
+            if left_or_right == 2:
+                turtles[item].right(random.randint(1,45))
             if turtles[item].pos()[0] >= 250:
                 winner = item
                 return winner
@@ -33,8 +38,8 @@ if user_guess.lower() == winner_turtle.lower():
 else:
     print("Your turtle did not win! :C")
 
-
-
 screen.mainloop()
+
+#to do, 100 turtle race -> random turns up and down with pendown -> complete chaos lol
 
 

@@ -14,7 +14,7 @@ def turtle_square():
     while not is_close_to(bob.pos(), (0, 0), 15):
         bob.right(90)
         bob.forward(100)
-        
+
 def dashed_line(length: int):
     for x in range(0, length):
         if x % 2 == 0:
@@ -62,5 +62,4 @@ def spirograph():
         bob.left(angle)
 
 spirograph()
-
 screen.mainloop()

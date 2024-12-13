@@ -13,6 +13,15 @@ class Snake:
             snake_part.goto(x, 0)
             self.snake_parts.append(snake_part)
 
+    def addtional_snake_part(self):
+        add_snake = Turtle("square")
+        add_snake.penup()
+        pos_last_part = self.snake_parts[len(self.snake_parts)-1].pos()
+        add_snake.teleport(pos_last_part[0], pos_last_part[1])
+        add_snake.color("white")
+        self.snake_parts.append(add_snake)
+        
+
     def move_snake(self):
         for i in range(len(self.snake_parts)-1, 0, -1):    
             pos = self.snake_parts[i-1].pos()        
@@ -24,10 +33,15 @@ class Snake:
         elif abs(pos[1]) >= 300:
             self.snake_parts[0].teleport(pos[0], pos[1] * -1)
 
-    def turn_left(self):
-        heading = self.snake_parts[0].heading()
-        self.snake_parts[0].setheading(heading+90)
-
-    def turn_right(self):
-        heading = self.snake_parts[0].heading()
-        self.snake_parts[0].setheading(heading-90)
+    def head_up(self):
+        if self.snake_parts[0].heading() != 270:
+            self.snake_parts[0].setheading(90)
+    def head_left(self):
+        if self.snake_parts[0].heading() != 0:
+            self.snake_parts[0].setheading(180)
+    def head_down(self):
+        if self.snake_parts[0].heading() != 90:
+            self.snake_parts[0].setheading(270)
+    def head_right(self):
+        if self.snake_parts[0].heading() != 180:
+            self.snake_parts[0].setheading(0)

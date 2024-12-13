@@ -19,4 +19,6 @@ while gameOn == True:
     time.sleep(0.1)
     #snake movement
     snake.move_snake()
+    window.onkeyrelease(lambda: snake.turn_left(), "a")
+    window.onkeyrelease(lambda: snake.turn_right(), "d")
 window.mainloop()

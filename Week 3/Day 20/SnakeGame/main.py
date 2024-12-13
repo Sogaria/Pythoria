@@ -1,4 +1,5 @@
 from turtle import Screen, Turtle
+import time
 
 window = Screen()
 window.setup(width=600, height=600)
@@ -8,7 +9,7 @@ window.listen()
 
 snake_parts = []
 def create_snake():
-    for i in range(0, 4):
+    for i in range(0, 3):
         snake_parts.append(Turtle("square"))
         snake_parts[i].penup()
         snake_parts[i].color("white")
@@ -16,29 +17,22 @@ def create_snake():
         snake_parts[i].goto(x, 0)
 
 def move_snake():
-    for square in snake_parts:
-        square.forward(10)
-        pos = square.pos()
-        #print(f"x: {pos[0]}, y: {pos[1]}")
-        if abs(pos[0]) >= 300:
-            square.teleport(pos[0] * -1, pos[1])
-        elif abs(pos[1]) >= 300:
-            square.teleport(pos[0], pos[1] * -1)
-
-def turn_left(snake_parts: list):
-    for square in snake_parts:
-        heading = square.heading()
-        print(heading)
-
-def turn_right(snake_parts: list):
-    for square in snake_parts:
-        square.right(90)
+    for i in range(len(snake_parts)-1, 0, -1):    
+        pos = snake_parts[i-1].pos()        
+        snake_parts[i].teleport(pos[0], pos[1])
+        print(f"Snake_part{i} teleported to pos of {i-1}")
+    snake_parts[0].forward(20)
+    pos = snake_parts[0].pos()
+    if abs(pos[0]) >= 300:
+        snake_parts[0].teleport(pos[0] * -1, pos[1])
+    elif abs(pos[1]) >= 300:
+        snake_parts[0].teleport(pos[0], pos[1] * -1)
 
 gameOn = True
 create_snake()
 while gameOn == True:
+    window.update()
     move_snake()
-    window.onkeypress(lambda: turn_left(snake_parts), "a")
-    window.onkeypress(lambda: turn_right(snake_parts), "d")
+    time.sleep(0.1)
 
 window.mainloop()

@@ -11,7 +11,6 @@ window.listen()
 
 gameOn = True
 
-#create snake
 snake = Snake()
 snake.create_snake()
 food = Food()
@@ -24,10 +23,12 @@ window.onkey(lambda: snake.head_right(), "d")
 
 while gameOn == True:
     window.update()
-    time.sleep(0.1)
-    #snake movement
+    time.sleep(0.05)
     food_eaten = food.food_eaten
     snake.move_snake()
+    if snake.check_collissions():
+        gameOn = False
+        break
     food.food_relocation(snake.snake_parts[0].pos())
     print(food.food_eaten)
     if food.food_eaten > food_eaten:

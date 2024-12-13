@@ -1,4 +1,6 @@
 from turtle import Screen, Turtle
+
+#FIRST_THREE_BODIES = [(20, 0)]
 class Snake:
     
     def __init__(self):
@@ -8,9 +10,9 @@ class Snake:
         for i in range(0, 3):
             snake_part = (Turtle("square"))
             snake_part.penup()
+            x = 0 - i*20
+            snake_part.teleport(x, 0)
             snake_part.color("white")
-            x = -20 + i * 20
-            snake_part.goto(x, 0)
             self.snake_parts.append(snake_part)
 
     def addtional_snake_part(self):
@@ -20,7 +22,13 @@ class Snake:
         add_snake.teleport(pos_last_part[0], pos_last_part[1])
         add_snake.color("white")
         self.snake_parts.append(add_snake)
-        
+
+    def check_collissions(self):
+        for i in range(len(self.snake_parts)-1, 0, -1):
+            if self.snake_parts[i].pos() == self.snake_parts[0].pos():
+                return True
+        else: 
+            return False
 
     def move_snake(self):
         for i in range(len(self.snake_parts)-1, 0, -1):    

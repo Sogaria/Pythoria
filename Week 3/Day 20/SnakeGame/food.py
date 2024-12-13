@@ -25,8 +25,7 @@ class Food:
             self.food_list[0].teleport(randint(-14, 14) * 20, randint(-14, 14) * 20)
 
 
-#create method to spawn additional snake part in snake.py
-#place it behind last element
-
-#in food access this method and call it when food_relocation triggered and score wents up
-
+#to do: score class to utilize turtle.write method, inherent food to access food eaten (calculate score to write on screen)
+#game over screen with tkinter and show score
+#restart game option & save highscores maybe?
+#improve rotation maybe with custom picture instead of build in square to prevent rotation

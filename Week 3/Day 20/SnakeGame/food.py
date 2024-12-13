@@ -25,7 +25,8 @@ class Food:
             self.food_list[0].teleport(randint(-14, 14) * 20, randint(-14, 14) * 20)
 
 
-#to do: score class to utilize turtle.write method, inherent food to access food eaten (calculate score to write on screen)
-#game over screen with tkinter and show score
+#implement more precise collission (small tolerance to fix float precise)
 #restart game option & save highscores maybe?
 #improve rotation maybe with custom picture instead of build in square to prevent rotation
+#fix if turn, move atleast once 20 forward before turn again
+

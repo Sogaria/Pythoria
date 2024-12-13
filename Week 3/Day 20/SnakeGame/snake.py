@@ -1,6 +1,4 @@
 from turtle import Screen, Turtle
-
-#FIRST_THREE_BODIES = [(20, 0)]
 class Snake:
     
     def __init__(self):

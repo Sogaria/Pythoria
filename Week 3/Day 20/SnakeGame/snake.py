@@ -1,6 +1,7 @@
 from turtle import Screen, Turtle
 from math import sqrt
 import time
+from random import choice
 class Snake:    
     def __init__(self):
         self.snake_parts = []
@@ -36,8 +37,7 @@ class Snake:
             snake_part.penup()
             x = 0 - i*20
             snake_part.teleport(x, 0)
-            snake_part.color(self.rainbow_colors[self.snake_color])
-            self.snake_color += 1
+            snake_part.color(choice(self.rainbow_colors))
             self.snake_parts.append(snake_part)
 
     def addtional_snake_part(self):
@@ -45,10 +45,7 @@ class Snake:
         add_snake.penup()
         pos_last_part = self.snake_parts[len(self.snake_parts)-1].pos()
         add_snake.teleport(pos_last_part[0], pos_last_part[1])
-        add_snake.color(self.rainbow_colors[self.snake_color])
-        self.snake_color += 1
-        if self.snake_color == len(self.rainbow_colors):
-            self.snake_color = 0
+        add_snake.color(choice(self.rainbow_colors))
         self.snake_parts.append(add_snake)
 
     def draw_border(self):

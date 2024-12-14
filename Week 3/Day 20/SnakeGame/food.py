@@ -23,10 +23,3 @@ class Food:
         if distance <= 15:
             self.food_eaten += 1
             self.food_list[0].teleport(randint(-14, 14) * 20, randint(-14, 14) * 20)
-
-
-#implement more precise collission (small tolerance to fix float precise)
-#restart game option & save highscores maybe?
-#improve rotation maybe with custom picture instead of build in square to prevent rotation
-#fix if turn, move atleast once 20 forward before turn again
-

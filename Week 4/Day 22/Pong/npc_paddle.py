@@ -11,4 +11,7 @@ class Npc(Turtle):
         self.color("white")
     
     def follow_ball(self, posy):
-        self.goto(480, posy)
+        if posy > self.pos()[1]:
+            self.goto(480, self.pos()[1]+10)
+        if posy < self.pos()[1]:
+            self.goto(480, self.pos()[1]-10)

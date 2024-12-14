@@ -6,6 +6,29 @@ class Snake:
         self.snake_parts = []
         self.last_turn_time = 0
         self.turn_cooldown = 0.1
+        self.snake_color = 0
+        self.screen = Screen()
+        self.screen.colormode(255)
+        self.rainbow_colors = [
+            (255, 0, 0),        # Red
+            (255, 51, 0),       # Red-Orange
+            (255, 102, 0),      # Orange
+            (255, 153, 0),      # Orange-Yellow
+            (255, 204, 0),      # Yellow
+            (204, 255, 0),      # Yellow-Green
+            (102, 255, 0),      # Green
+            (0, 255, 0),        # Green
+            (0, 255, 102),      # Green-Cyan
+            (0, 255, 204),      # Cyan
+            (0, 204, 255),      # Cyan-Blue
+            (0, 102, 255),      # Blue
+            (51, 0, 255),       # Blue-Indigo
+            (102, 0, 255),      # Indigo
+            (153, 0, 255),      # Indigo-Violet
+            (204, 0, 255),      # Violet
+            (238, 0, 255),      # Violet
+            (238, 130, 238)     # Final Violet (same as before)
+        ]
         
     def create_snake(self):
         for i in range(0, 3):
@@ -13,7 +36,8 @@ class Snake:
             snake_part.penup()
             x = 0 - i*20
             snake_part.teleport(x, 0)
-            snake_part.color("green")
+            snake_part.color(self.rainbow_colors[self.snake_color])
+            self.snake_color += 1
             self.snake_parts.append(snake_part)
 
     def addtional_snake_part(self):
@@ -21,7 +45,10 @@ class Snake:
         add_snake.penup()
         pos_last_part = self.snake_parts[len(self.snake_parts)-1].pos()
         add_snake.teleport(pos_last_part[0], pos_last_part[1])
-        add_snake.color("green")
+        add_snake.color(self.rainbow_colors[self.snake_color])
+        self.snake_color += 1
+        if self.snake_color == len(self.rainbow_colors):
+            self.snake_color = 0
         self.snake_parts.append(add_snake)
 
     def draw_border(self):

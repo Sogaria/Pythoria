@@ -1,5 +1,5 @@
 from turtle import Screen
-import time, arena_layout, player_paddle
+import time, arena_layout, player_paddle, ball, npc_paddle
 
 
 window = Screen()
@@ -12,8 +12,10 @@ window.listen()
 
 gameOn = True
 player = player_paddle.Player()
+npc = npc_paddle.Npc()
 arena = arena_layout.Arena()
 arena.draw_arena()
+ball = ball.Ball()
 
 window.onkeypress(lambda: player.move_up(), "w")
 window.onkeypress(lambda: player.move_down(), "s")
@@ -21,6 +23,8 @@ window.onkeypress(lambda: player.move_down(), "s")
 while gameOn:
     window.update()
     time.sleep(0.025)
+    ball.move_ball(30)
+    npc.follow_ball(ball.pos()[1])
 
 window.mainloop()
 #ycor 270 = paddle limitation

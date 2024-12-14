@@ -23,14 +23,14 @@ window.onkeypress(lambda: player.move_down(), "s")
 while gameOn:
     window.update()
     time.sleep(0.025)
-    ball.move_ball(10)
-    ball.bounce_ball(False)
-    npc.follow_ball(ball.pos()[1])
-    if abs(ball.pos()[0] - player.pos()[0]) <= 30 and abs(ball.pos()[1] - player.pos()[1]) <= 50:
-        ball.bounce_ball(True)
+    ball.move_ball()
+    ball.bounce_ball(False, 0)
+    npc.follow_ball(ball.pos()[1], ball.pos()[0])
+    if abs(ball.pos()[0] - player.pos()[0]) <= 35 and abs(ball.pos()[1] - player.pos()[1]) <= 50:
+        ball.bounce_ball(True, abs(ball.pos()[1] - player.pos()[1]))
         print("Bounced from player")
-    if abs(ball.pos()[0] - npc.pos()[0]) <= 30 and abs(ball.pos()[1] - npc.pos()[1]) <= 50:
-        ball.bounce_ball(True)
+    if abs(ball.pos()[0] - npc.pos()[0]) <= 50 and abs(ball.pos()[1] - npc.pos()[1]) <= 50:
+        ball.bounce_ball(True, abs(ball.pos()[1] - npc.pos()[1]))
         print("Bounced from npc")
     if abs(ball.pos()[0]) >= 480:
         gameOn = False

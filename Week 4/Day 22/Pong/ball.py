@@ -9,15 +9,17 @@ class Ball(Turtle):
         self.color("white")
         self.home()
         self.penup()
-        #self.setheading(random.randint(120, 240))
-        self.setheading(180)
+        self.ball_speed = 10
+        self.setheading(random.randint(120, 240))
     
-    def move_ball(self, speed):
-        self.forward(speed)
+    def move_ball(self):
+        self.forward(self.ball_speed)
     
-    def bounce_ball(self, hit_paddle):
+    def bounce_ball(self, hit_paddle, paddle_distance):
         if hit_paddle:
-            self.setheading(180 - self.heading())
+            self.ball_speed = 10
+            self.setheading(180 - self.heading() + paddle_distance)
+            self.ball_speed *= (1 + (paddle_distance * 0.05))
 
         if abs(self.pos()[0]) >= 480:
             self.setheading(180 - self.heading())

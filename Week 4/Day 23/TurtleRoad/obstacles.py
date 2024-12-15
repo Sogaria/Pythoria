@@ -21,8 +21,8 @@ class Obstacles():
         for i in range (225, -225, -50):
             self.spawn_cords.append((400, i))
 
-    def spawn_turtles(self, time):
-        if time - self.last_obstactle_created > self.cooldown:
+    def spawn_turtles(self, time, level):
+        if time - self.last_obstactle_created > self.cooldown - level * 0.2:
             turtle = Turtle("square")
             turtle.penup()
             turtle.hideturtle()
@@ -38,12 +38,12 @@ class Obstacles():
             self.visible_obstacles.append(turtle)
             turtle.showturtle()
 
-    def move_turtles(self, playerx, playery):
+    def move_turtles(self, playerx, playery) -> bool:
         temp_remaining = []
         for obstacle in self.visible_obstacles:
             obstacle.forward(5)
             #check collision player
-            if abs(playerx - obstacle.pos()[0]) <= 20 and abs(playery - obstacle.pos()[1]) <= 20:
+            if abs(playerx - obstacle.pos()[0]) <= 18 and abs(playery - obstacle.pos()[1]) <= 18:
                 return True
             if abs(obstacle.pos()[0]) > 500:
                 obstacle.reset()
@@ -53,9 +53,4 @@ class Obstacles():
                 temp_remaining.append(obstacle)
         self.visible_obstacles = temp_remaining
         return False
-
-            #225y -> -200
-        
-            
-        
 

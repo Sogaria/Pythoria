@@ -10,15 +10,15 @@ window.tracer(0)
 turtle_player = player.Player()
 turtle_player.reset_player_pos()
 obstacles = obstacles.Obstacles()
-obstacles.init_spawn_cords()
 
 window.onkey(lambda: turtle_player.move_turtle(), "w")
 
 gameOn = True
 while gameOn:
     current_time = time.time()
+    time.sleep(0.1)
     window.update()
-    obstacles.spawn_obstacles(current_time)
-    obstacles.move_turtle()
+    obstacles.spawn_turtles(current_time)
+    obstacles.move_turtles()
 
 window.mainloop()

@@ -19,6 +19,6 @@ while gameOn:
     time.sleep(0.1)
     window.update()
     obstacles.spawn_turtles(current_time)
-    obstacles.move_turtles()
-
+    if obstacles.move_turtles(turtle_player.pos()[0], turtle_player.pos()[1]):
+        score.game_over()
 window.mainloop()

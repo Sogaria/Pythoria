@@ -8,18 +8,19 @@ class Food:
         self.food_eaten = 0
         self.first_food = (randint(-14, 14) * 20, randint(-14, 14) * 20)
 
-
     def create_food(self):
         food = Turtle("circle")
         food.color("green")
         food.teleport(randint(-14, 14) * 20, randint(-14, 14) * 20)
         self.food_list.append(food)
 
+    def reset_food_score(self):
+        self.food_eaten = 0
+
     def food_relocation(self, snake_head_position):
         food_position = self.food_list[0].pos()
         distance = sqrt((food_position[0] - snake_head_position[0]) ** 2 +
                         (food_position[1] - snake_head_position[1]) ** 2)
-        
         if distance <= 15:
             self.food_eaten += 1
             self.food_list[0].teleport(randint(-14, 14) * 20, randint(-14, 14) * 20)

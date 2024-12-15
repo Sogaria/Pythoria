@@ -22,13 +22,13 @@ stage = 1
 
 while gameOn:
     current_time = time.time()
-    time.sleep(0.1)
+    time.sleep(0.009)
     level.draw_level(stage)
     if turtle_player.pos_verify():
         stage += 1
     window.update()
     obstacles.spawn_turtles(current_time, stage)
-    if obstacles.move_turtles(turtle_player.pos()[0], turtle_player.pos()[1]):
+    if obstacles.move_turtles(turtle_player.pos()[0], turtle_player.pos()[1], stage):
         level.game_over()
         gameOn = False
         break

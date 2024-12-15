@@ -32,9 +32,13 @@ while gameOn == True:
     food_eaten = food.food_eaten
     snake.move_snake()
     if snake.check_collissions():
-        gameOn = False
         score.game_over()
-        break
+        window.update()
+        score.score_reset()
+        snake.reset_sake()
+        food.reset_food_score()
+        time.sleep(2)
+        score.write_score(food.food_eaten)      
     food.food_relocation(snake.snake_parts[0].pos())
     if food.food_eaten > food_eaten:
         snake.addtional_snake_part()

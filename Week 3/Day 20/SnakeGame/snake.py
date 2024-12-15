@@ -40,6 +40,14 @@ class Snake:
             snake_part.color(choice(self.rainbow_colors))
             self.snake_parts.append(snake_part)
 
+    def reset_sake(self):
+        for part in self.snake_parts:
+            part.reset()
+            part.hideturtle()
+            del(part)
+        self.snake_parts = []
+        self.create_snake()
+
     def addtional_snake_part(self):
         add_snake = Turtle("square")
         add_snake.penup()

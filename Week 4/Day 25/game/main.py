@@ -19,24 +19,12 @@ def turtle_write(x: int, y: int, state: str):
     turtle.write(state, align="center")
 
 #game
-correct_guesses = 0
 correct_guess_states = []
-prompt = window.textinput("Guess the State", "What's another state name?")
-prompt = prompt.title()
-
-if state_data.state.to_list().count(prompt) > 0:
-    correct_guesses += 1
-    correct_guess_states.append(prompt)
-    row = state_data[state_data["state"] == prompt]
-    state, x, y = row[["state", "x", "y"]].values[0] #because only 1 row in DataFrame -> pull values from index 0
-    turtle_write(x, y, state)    
-    
-while correct_guesses < 50:
-    prompt = window.textinput(f"{correct_guesses}/50 States Correct", "What's another state name?")
+while len(correct_guess_states) < 50:
+    prompt = window.textinput(f"{len(correct_guess_states)}/50 States Correct", "What's another state name?")
     prompt = prompt.title()
     
     if state_data.state.to_list().count(prompt) > 0 and correct_guess_states.count(prompt) == 0:
-        correct_guesses += 1
         correct_guess_states.append(prompt)
         row = state_data[state_data["state"] == prompt]
         state, x, y = row[["state", "x", "y"]].values[0]

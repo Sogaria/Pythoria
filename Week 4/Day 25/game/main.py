@@ -25,7 +25,7 @@ while len(correct_guess_states) < 50:
     prompt = prompt.title()
     
     if prompt == "Exit":
-        learn_states = [state for state in state_data["state"].to_list() if correct_guess_states.count(state) == 0]
+        learn_states = [state for state in state_data["state"].to_list() if state not in correct_guess_states]
         new_data = pd.DataFrame(learn_states)
         new_data.to_csv("Week 4/Day 25/game/missed_states.csv")
         break

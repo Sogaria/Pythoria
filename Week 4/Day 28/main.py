@@ -36,6 +36,7 @@ def timer_start():
     
     if not timer_running:
         timer_running = True
+        label_title.config(text="Study now c:")
         update_timer()
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 def update_timer():
@@ -51,12 +52,19 @@ def update_timer():
     canvas.itemconfig(canvas_id, text=time_formatted)
     
     if minutes == 0 and seconds == 0:
-        if onbreak:
+        if sets % 4 == 0:
+            timer_reset(LONG_BREAK_MIN, 0, False)
+            label_title.config(text="Long Break")
+            onbreak = True
+            
+        elif onbreak:
             timer_reset(WORK_MIN, 0, False)
+            label_title.config(text="Study now c:")
             onbreak = False
             
         elif not onbreak:
             sets += 1
+            label_title.config(text="Short Break")
             timer_reset(SHORT_BREAK_MIN, 0, False)
             onbreak = True
             label_checkmarks.config(text=(sets * CHECKMARK))

@@ -14,8 +14,6 @@ after_id = None
 timer_running = False
 minutes = 25
 seconds = 0
-sets = 0
-set_done = False
 # ---------------------------- TIMER RESET ------------------------------- # 
 def timer_reset():
     global timer_running, minutes, seconds
@@ -33,7 +31,7 @@ def timer_start():
         update_timer()
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 def update_timer():
-    global sets, after_id, minutes, seconds
+    global after_id, minutes, seconds
     if seconds >= 0:
         seconds -= 1
     if seconds == -1:
@@ -41,18 +39,7 @@ def update_timer():
         minutes -= 1
     time_formatted = f"{minutes:02}:{seconds:02}"
     canvas.itemconfig(canvas_id, text=time_formatted)
-    if minutes == 0 and seconds == 0 and not set_done:
-        sets += 1
-        set_done = True
-        minutes = 5
-        seconds = 0
-        update_timer()
-    if minutes == 0 and seconds == 0 and set_done:
-        set_done = False
-        minutes = 25
-        second = 0
-        update_timer()
-    if sets == 4:
+    if minutes == 0 and seconds == 0:
         timer_reset()
     after_id = window.after(1000, update_timer)
 # ---------------------------- UI SETUP ------------------------------- #

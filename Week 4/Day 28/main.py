@@ -18,7 +18,7 @@ sets = 0
 set_done = False
 # ---------------------------- TIMER RESET ------------------------------- # 
 def timer_reset():
-    global timer_running
+    global timer_running, minutes, seconds
     if timer_running:
         window.after_cancel(after_id)
         canvas.itemconfig(canvas_id, text="25:00")
@@ -30,10 +30,10 @@ def timer_start():
     global timer_running
     if not timer_running:
         timer_running = True
-        update_timer(minutes, seconds)
+        update_timer()
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
-def update_timer(minutes, seconds):
-    global sets, after_id
+def update_timer():
+    global sets, after_id, minutes, seconds
     if seconds >= 0:
         seconds -= 1
     if seconds == -1:
@@ -44,13 +44,17 @@ def update_timer(minutes, seconds):
     if minutes == 0 and seconds == 0 and not set_done:
         sets += 1
         set_done = True
-        update_timer(5, 0)
+        minutes = 5
+        seconds = 0
+        update_timer()
     if minutes == 0 and seconds == 0 and set_done:
         set_done = False
-        update_timer(25, 0)
+        minutes = 25
+        second = 0
+        update_timer()
     if sets == 4:
         timer_reset()
-    after_id = window.after(1000, update_timer, minutes, seconds)
+    after_id = window.after(1000, update_timer)
 # ---------------------------- UI SETUP ------------------------------- #
 window = tk.Tk()
 window.title("Pomodoro")

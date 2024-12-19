@@ -69,6 +69,9 @@ button_start.grid(row=2, column=0)
 button_reset = tk.Button(text="Reset", command=lambda: timer_reset(), highlightthickness=0)
 button_reset.grid(row=2, column=2)
 
+label_checkmarks = tk.Label(text="", highlightthickness=0, bg=RED)
+label_checkmarks.grid(row=3, column=1)
+
 canvas = tk.Canvas(width=200, height=224, bg=RED, highlightthickness=0)
 background = tk.PhotoImage(file="tomato.png")
 canvas.create_image(100, 112, image=background)

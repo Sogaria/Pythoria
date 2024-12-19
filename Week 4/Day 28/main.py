@@ -18,12 +18,18 @@ seconds = 0
 onbreak = False
 sets = 0
 # ---------------------------- TIMER RESET ------------------------------- # 
-def timer_reset(minutes_reset, second_reset):
+def timer_reset(minutes_reset, second_reset, button_press: bool):
     global timer_running, minutes, seconds
     
-    if timer_running:
+    if timer_running and not button_press:
         minutes = minutes_reset
         seconds = second_reset
+    if button_press and after_id != None:
+        canvas.itemconfig(canvas_id, text="25:00")
+        minutes = 25
+        seconds = 0
+        timer_running = False
+        window.after_cancel(after_id)
 # ---------------------------- TIMER START ------------------------------- # 
 def timer_start():
     global timer_running
@@ -46,12 +52,12 @@ def update_timer():
     
     if minutes == 0 and seconds == 0:
         if onbreak:
-            timer_reset(WORK_MIN, 0)
+            timer_reset(WORK_MIN, 0, False)
             onbreak = False
             
         elif not onbreak:
             sets += 1
-            timer_reset(SHORT_BREAK_MIN, 0)
+            timer_reset(SHORT_BREAK_MIN, 0, False)
             onbreak = True
             label_checkmarks.config(text=(sets * CHECKMARK))
             
@@ -67,7 +73,7 @@ label_title.grid(row=0, column=1)
 button_start = tk.Button(text="Start", command=lambda: timer_start(), highlightthickness=0)
 button_start.grid(row=2, column=0)
 
-button_reset = tk.Button(text="Reset", command=lambda: timer_reset(25, 0), highlightthickness=0)
+button_reset = tk.Button(text="Reset", command=lambda: timer_reset(25, 0, True), highlightthickness=0)
 button_reset.grid(row=2, column=2)
 
 label_checkmarks = tk.Label(text="", highlightthickness=0, bg=RED, fg=GREEN, font=(30))

@@ -12,17 +12,15 @@ LONG_BREAK_MIN = 20
 # ---------------------------- TIMER Variables ------------------------------- # 
 after_id = None
 timer_running = False
-minutes = 25
+minutes = WORK_MIN
 seconds = 0
-sets = 0
-set_done = False
 # ---------------------------- TIMER RESET ------------------------------- # 
 def timer_reset():
     global timer_running, minutes, seconds
     if timer_running:
         window.after_cancel(after_id)
         canvas.itemconfig(canvas_id, text="25:00")
-        minutes = 25
+        minutes = WORK_MIN
         seconds = 0
         timer_running = False
 # ---------------------------- TIMER START ------------------------------- # 
@@ -33,27 +31,16 @@ def timer_start():
         update_timer()
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 def update_timer():
-    global sets, after_id, minutes, seconds
+    global seconds, minutes
     if seconds >= 0:
         seconds -= 1
     if seconds == -1:
         seconds = 59
         minutes -= 1
+    if seconds == 0 and minutes == 0:
+        timer_reset()
     time_formatted = f"{minutes:02}:{seconds:02}"
     canvas.itemconfig(canvas_id, text=time_formatted)
-    if minutes == 0 and seconds == 0 and not set_done:
-        sets += 1
-        set_done = True
-        minutes = 5
-        seconds = 0
-        update_timer()
-    if minutes == 0 and seconds == 0 and set_done:
-        set_done = False
-        minutes = 25
-        second = 0
-        update_timer()
-    if sets == 4:
-        timer_reset()
     after_id = window.after(1000, update_timer)
 # ---------------------------- UI SETUP ------------------------------- #
 window = tk.Tk()
@@ -72,7 +59,7 @@ button_reset.grid(row=2, column=2)
 canvas = tk.Canvas(width=200, height=224, bg=RED, highlightthickness=0)
 background = tk.PhotoImage(file="tomato.png")
 canvas.create_image(100, 112, image=background)
-canvas_id = canvas.create_text(100, 130, text="00:00", font=(FONT_NAME, 30, "bold"), fill="white")
+canvas_id = canvas.create_text(100, 130, text="25:00", font=(FONT_NAME, 30, "bold"), fill="white")
 canvas.grid(row=1, column=1)
 
 window.mainloop()

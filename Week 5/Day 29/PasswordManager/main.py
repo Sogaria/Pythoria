@@ -68,6 +68,27 @@ def save_data():
                 input_website.delete(0, 'end')
     else: 
         pass
+#----------------------Search Website Data--------------------------#
+def search_website():
+    found = False
+    if input_website.get() != "":
+        website = input_website.get()
+    else:
+        messagebox.Message(message="You must enter a website before using search.", title="Error").show()
+        return
+
+    try:
+        with open("data.json") as file:
+            current_data = json.load(file)
+        
+        for key in current_data:
+            if key.lower().find(website.lower()) > -1:
+                messagebox.Message(message=f"Website: {website}\nUser: {current_data[key]["Email"]}\nPw: {current_data[key]["Pw"]}", title="Data Information").show()
+                found = True
+        if not found:
+            messagebox.Message(message="Website not found.", title="Error").show()
+    except FileNotFoundError:
+        messagebox.Message(message="No data found.", title="Error").show()
 #----------------------UI Setup--------------------------#
 label_website = tk.Label(text="Website:", font=("Arial", 13))
 label_website.grid(row=1, column=0)
@@ -76,17 +97,19 @@ label_email.grid(row=2, column=0)
 label_pw = tk.Label(text="Password:", font=("Arial", 13))
 label_pw.grid(row=3, column=0)
 
-input_email = tk.Entry(width=31)
-input_email.grid(row=2, column= 1, sticky="w")
-input_website = tk.Entry(width=31)
-input_website.grid(row=1, column=1, sticky="w")
-input_pw = tk.Entry(width=31)
-input_pw.grid(row=3, column=1, sticky="w")
+input_email = tk.Entry(width=40)
+input_email.grid(row=2, column= 1)
+input_website = tk.Entry(width=40)
+input_website.grid(row=1, column=1)
+input_pw = tk.Entry(width=40)
+input_pw.grid(row=3, column=1)
 
-button_pw = tk.Button(text="Generate Password", command=generate_password)
-button_pw.grid(row=3, column=2, sticky="w")
-button_add = tk.Button(text="Add Password to Manager", command=save_data)
-button_add.grid(row=4, column=2, sticky="w")
+button_search = tk.Button(text="Search Data", width=20, command=search_website)
+button_search.grid(row=1, column=2)
+button_pw = tk.Button(text="Generate Password", command=generate_password, width=20)
+button_pw.grid(row=3, column=2)
+button_add = tk.Button(text="Add Password to Manager", command=save_data, width=20)
+button_add.grid(row=2, column=2)
 
 canvas = tk.Canvas(width=200, height=200)
 background = tk.PhotoImage(file="logo.png")

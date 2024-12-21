@@ -6,7 +6,6 @@ window = tk.Tk()
 window.title("Password Manager")
 window.minsize(width=500, height=350)
 window.config(padx=20, pady=20)
-
 #----------------------Constants--------------------------#
 LIST_LOWER = list(string.ascii_lowercase)
 LIST_UPPER = list(string.ascii_uppercase)

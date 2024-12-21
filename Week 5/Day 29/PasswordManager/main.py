@@ -37,20 +37,35 @@ def save_data():
         if input_website.get() == "" or input_email.get() == "" or input_pw == "":
             messagebox.Message(message="Please fill out all inputs.", title="Error").show()
         else:
-            inner_list = []
-            inner_dict = {
-                "Email_Username" : input_email.get(),
-                "Password" : input_pw.get()
-            }
             messagebox.Message(message="Password successfully stores in data.json!", title="Success!").show()
-            inner_list.append(inner_dict)
-            outer_dict = {
-                input_website.get() : inner_list
-            }
-            json_line = json.dump(outer_dict)
             
-            with open(file="data.json", mode="a") as file:
-                file.write(json_line)
+            new_data = {
+                input_website.get(): {
+                    "Email" : input_email.get(),
+                    "Pw" : input_pw.get()
+                }
+            }
+            
+            while True:
+                try:
+                    with open("data.json", mode="r") as file:
+                        try:
+                            data = json.load(file)
+                            data.update(new_data)
+                            break
+                        except Exception:
+                            data = new_data
+                            break
+                except FileNotFoundError:
+                    with open("data.json", "w") as file:
+                        pass
+                
+            
+            with open("data.json", mode="w") as file:
+                json.dump(data, file, indent=4)
+                input_email.delete(0, 'end')
+                input_pw.delete(0, 'end')
+                input_website.delete(0, 'end')
     else: 
         pass
 #----------------------UI Setup--------------------------#

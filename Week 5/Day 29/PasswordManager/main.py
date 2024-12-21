@@ -1,12 +1,11 @@
 import tkinter as tk
-import string, random
+import string, random, json
 from tkinter import messagebox
 
 window = tk.Tk()
 window.title("Password Manager")
 window.minsize(width=500, height=350)
 window.config(padx=20, pady=20)
-
 #----------------------Constants--------------------------#
 LIST_LOWER = list(string.ascii_lowercase)
 LIST_UPPER = list(string.ascii_uppercase)
@@ -33,15 +32,25 @@ def generate_password():
     input_pw.insert(0, password)
 #----------------------SAVE TO TXT--------------------------#
 def save_data():
-    answer = messagebox.askokcancel(title="Confirmation", message="Confirm saving your data to data.txt")
+    answer = messagebox.askokcancel(title="Confirmation", message="Confirm saving your data to data.json")
     if answer:
         if input_website.get() == "" or input_email.get() == "" or input_pw == "":
             messagebox.Message(message="Please fill out all inputs.", title="Error").show()
         else:
-            messagebox.Message(message="Password successfully stores in data.txt!", title="Success!").show()
-            with open(file="data.txt", mode="a") as file:
-                line = f"Website: {input_website.get()} | Email: {input_email.get()} | Password: {input_pw.get()}\n"
-                file.write(line)
+            inner_list = []
+            inner_dict = {
+                "Email_Username" : input_email.get(),
+                "Password" : input_pw.get()
+            }
+            messagebox.Message(message="Password successfully stores in data.json!", title="Success!").show()
+            inner_list.append(inner_dict)
+            outer_dict = {
+                input_website.get() : inner_list
+            }
+            json_line = json.dump(outer_dict)
+            
+            with open(file="data.json", mode="a") as file:
+                file.write(json_line)
     else: 
         pass
 #----------------------UI Setup--------------------------#

@@ -38,8 +38,8 @@ def flip_card(know_word: bool):
     #flip cards
     canvas.itemconfig(id_card_front, state='hidden')
     canvas.itemconfig(id_card_back, state='normal')
-    canvas.itemconfig(id_language_text, text="French")
-    canvas.itemconfig(id_word_text, text=words_csv["French"][i])
+    canvas.itemconfig(id_language_text, text="French", fill="white")
+    canvas.itemconfig(id_word_text, text=words_csv["French"][i], fill="white")
     if know_word: #yes button
         words_csv = words_csv.drop(index=i)
 
@@ -55,8 +55,8 @@ def new_card():
     yes_button.config(state='active')
     if len(words_csv) > 1 and i < len(words_csv) - 1:
         i += 1
-        canvas.itemconfig(id_word_text, text=words_csv["English"][i])
-        canvas.itemconfig(id_language_text, text="English")
+        canvas.itemconfig(id_word_text, text=words_csv["English"][i], fill="black")
+        canvas.itemconfig(id_language_text, text="English", fill="black")
         canvas.itemconfig(id_card_front, state='normal')
         canvas.itemconfig(id_card_back, state='hidden')
     elif i == len(words_csv) - 1:

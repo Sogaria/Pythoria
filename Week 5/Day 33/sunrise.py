@@ -1,8 +1,8 @@
 import requests
 import datetime
 
-LATITUDE = 49.319538
-LONGITUDE = 7.334330
+LATITUDE = 50.197289
+LONGITUDE = 7.856010
 
 date = datetime.datetime.now()
 date_string = date.strftime("%m/%d/%Y, %H:%M:%S")

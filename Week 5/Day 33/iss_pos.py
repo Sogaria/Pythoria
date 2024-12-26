@@ -18,20 +18,25 @@ def check_iss(is_night: bool):
 
         if abs(MY_LATITUDE - lat_iss) <= 15 and abs(MY_LONGITUTE-long_iss) <= 9:
             print(f"ISS is close enough at ({lat_iss},{long_iss})")
-
-            geolocator = Nominatim(user_agent="geoapi")
-            latitude = lat_iss
-            longitude = long_iss
-            location = geolocator.reverse((latitude, longitude))
-            print(f"Currently at {location.address}")
+            try: 
+                geolocator = Nominatim(user_agent="geoapi")
+                latitude = lat_iss
+                longitude = long_iss
+                location = geolocator.reverse((latitude, longitude))
+                print(f"Currently at {location.address}")
+            except AttributeError:
+                print(f"Unknown location at ({lat_iss}, {long_iss})")
             send_mail()
         else:
-            print(f"ISS is not close enough, currently at ({lat_iss},{long_iss})")
-            geolocator = Nominatim(user_agent="geoapi")
-            latitude = lat_iss
-            longitude = long_iss
-            location = geolocator.reverse((latitude, longitude))
-            print(f"Address: {location.address}")
+            print(f"ISS is not close enough, currently at ({lat_iss}, {long_iss})")
+            try:
+                geolocator = Nominatim(user_agent="geoapi")
+                latitude = lat_iss
+                longitude = long_iss
+                location = geolocator.reverse((latitude, longitude))
+                print(f"Address: {location.address}")
+            except AttributeError:
+                print(f"Unknown location at {lat_iss}, {long_iss}")
     else:
         print("Right now its daytime at your location!")
 

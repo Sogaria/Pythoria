@@ -2,7 +2,9 @@ import requests, html
 
 parameters = {
     "amount" : 10,
-    "type" : "boolean"
+    "type" : "boolean",
+    "category": 9,
+    "difficulty": "medium"
 }
 
 r = requests.get("https://opentdb.com/api.php", params=parameters)

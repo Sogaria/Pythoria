@@ -34,12 +34,16 @@ class Ui_Interface:
         if self.quiz.still_has_questions():
             self.update_score()
             next_question = self.quiz.next_question()
+            self.button_no.config(state="normal")
+            self.button_yes.config(state="normal")
             self.canvas.itemconfig(self.canvas_text, text=f"Q.{self.quiz.question_number}: " + next_question, state="normal")
             self.canvas.itemconfig(self.canvas_feedback_text, state="hidden")
         else:
             self.ending_screen()
     
     def button_press(self, decision: bool):
+        self.button_yes.config(state="disabled")
+        self.button_no.config(state="disabled")
         if decision:
             if self.quiz.evaluate_answer(True):
                 self.canvas.itemconfig(self.canvas_text, state="hidden")

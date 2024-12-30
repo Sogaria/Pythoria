@@ -1,10 +1,14 @@
-import requests
+import requests, html
 
-r = requests.get("https://opentdb.com/api.php?amount=10&type=boolean")
-question_api_data = r.json()
+parameters = {
+    "amount" : 10,
+    "type" : "boolean"
+}
 
-for item in question_api_data["results"]:
-    print(item["question"])
-    print(item["correct_answer"])
+r = requests.get("https://opentdb.com/api.php", params=parameters)
+r.raise_for_status()
+data = r.json()
+question_api_data = data["results"]
 
-
+for item in question_api_data:
+    item["question"] = html.unescape(item["question"])    
